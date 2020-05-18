@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="us">
+<head>
+	<meta charset="utf-8">
+	<title>BigMusicClubConclomerate’s Events</title>
+	<link href="jquery-ui.css" rel="stylesheet">
+	<style>
+	body{
+		font-family: "Trebuchet MS", sans-serif;
+		margin: 50px;
+	}
+	.demoHeaders {
+		margin-top: 2em;
+	}
+	#dialog-link {
+		padding: .4em 1em .4em 20px;
+		text-decoration: none;
+		position: relative;
+	}
+	#dialog-link span.ui-icon {
+		margin: 0 5px 0 0;
+		position: absolute;
+		left: .2em;
+		top: 50%;
+		margin-top: -8px;
+	}
+	#icons {
+		margin: 0;
+		padding: 0;
+	}
+	#icons li {
+		margin: 2px;
+		position: relative;
+		padding: 4px 0;
+		cursor: pointer;
+		float: left;
+		list-style: none;
+	}
+	#icons span.ui-icon {
+		float: left;
+		margin: 0 4px;
+	}
+	.fakewindowcontain .ui-widget-overlay {
+		position: absolute;
+	}
+	select {
+		width: 200px;
+	}
+    table {
+        border-collapse: collapse;
+    }
+    table, th, td {
+        border: 1px solid black;
+    }
+	</style>
+</head>
+<body>
+
+<h1>BigMusicClubConclomerate’s Events</h1>
+
+<h2>Upcoming Events</h2>
+<div id="upcomingEvents"></div>
+
+<h2 class="demoHeaders">Venues</h2>
+<div id="accordion"></div>
+
+<script src="external/jquery/jquery.js"></script>
+<script src="jquery-ui.js"></script>
+<script>
+$( function () {
+    $.ajax({
+        url: "https://blmak.github.io/BigMusicClubConclomerateDates.json",
+        type: "GET",
+        dataType : "text",
+    })
+      .done(function( eventsText ) {
+        let events = JSON.parse(eventsText);
+        initUpcomingEvents(events);
+        initAccordion(events);
+    })
+      .fail(function( xhr, status, errorThrown ) {
+        alert( "Sorry, there was a problem!" );
+    })
+      .always(function( xhr, status ) {
+        //alert( "The request is complete!" );
+    });
+});
+
+function initUpcomingEvents(events) {
+    let today = new Date();
+    today.setHours(0,0,0,0);
+
+    const params = new URLSearchParams(window.location.search);
+    if (params.has("today")) {
+        today = parseDate(params.get("today"));
+    }
+
+    let upcomingEvents = events.filter( e => getEventDateTime(e) > today )
+                               .sort( compareEventsByDateTime );
+
+    if (upcomingEvents.length == 0) {
+        $( "#upcomingEvents" ).html( "No upcoming events. Please check back later!" );
+    } else {
+        $( "#upcomingEvents" ).html( upcomingEvents.map(toTableHtml).join('') );
+    }
+}
+
+// dealing with crappy data (like "2019-12-7")
+// and confusing Date.parse() behavior (try parse "2019-12-7" and "2019-12-07" and see the diff)
+function parseDate(dateString) {
+    const dateTokens = dateString.split('-');
+    return new Date(parseInt(dateTokens[0], 10), 
+                    parseInt(dateTokens[1], 10) - 1, 
+                    parseInt(dateTokens[2], 10));
+}
+
+function getEventDateTime(e) {
+    let d = parseDate(e.date);
+    const timeTokens = e.show_time.split(':');
+    d.setHours(parseInt(timeTokens[0], 10),
+               parseInt(timeTokens[1], 10));
+    return d;
+}
+
+function compareEventsByDateTime(a, b) {
+    let event1Time = getEventDateTime(a);
+    let event2Time = getEventDateTime(b);
+    if (event1Time > event2Time) return 1;
+    if (event1Time.getTime() == event2Time.getTime()) return 0;
+    if (event1Time < event2Time) return -1; 
+}
+
+function initAccordion(events) {
+    let venueEventsMap = new Map(); 
+    
+    for (const event of events) {
+        // this guarantees we will never have a venue with no events in the map
+        addToMultiMap(venueEventsMap, event.venue, event); 
+    }
+
+    venueEventsMap.forEach( (events, venue, map) => {
+        $( "#accordion" ).append( "<h3>" + venue + "</h3>");
+        $( "#accordion" ).append( "<div>" + events.sort(compareEventsByDateTime).map(toTableHtml).join('') + "</div>");
+    });
+
+    $( "#accordion" ).accordion({
+      collapsible: true,
+      active: false
+    });
+}
+
+function addToMultiMap(map, key, value) {
+    let valueArray = map.get(key);
+    if (valueArray == null) {
+        valueArray = [];
+    }
+    valueArray.push(value);
+    map.set(key, valueArray);
+}
+
+function toTableHtml(e) {
+    let html = "<table>";
+    for (const x in e) {
+        html += "<tr>";
+        html += "<td>" + x + "</td>";
+        html += "<td>" + e[x] + "</td>";
+        html += "</tr>";
+    }
+    html += "</table>";
+    return html;
+}
+
+</script>
+</body>
+</html>
