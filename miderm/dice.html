@@ -1,0 +1,88 @@
+<html>
+<head>
+<style>
+    body{
+        background-color:#96bb3e;
+        text-align: center;
+    }
+#dice {
+font-size: 8rem;}
+.dice1{
+
+    margin-top: 6em;
+}
+label{
+    font-size: 20px;
+    font-weight: 600;
+}
+.button1{
+    font-family: 'Montserrat';
+border: none;
+outline: none;
+height: 43px;
+background: black;
+color: white;
+text-align: center;
+width: 114px;
+margin-bottom: 0.5em;
+ border-radius: 9px;
+ line-height: 1.7em;
+font-weight: 500;
+font-size: 20px;
+text-transform: uppercase; 
+}
+h2{
+    margin-bottom: -16px;
+    margin-top: -7px;
+}
+
+</style>
+</head>
+<body>
+    <div class="dice1">
+        <h1>The less chance of a dice combination, the more shots the players must take.</h1><br>
+        <h2 id="inp"></h2><br>
+        <img src="img1.png"> <br><br>
+   <label>Dice Amount</label>     
+  
+<input style="text-align: center;background-color: black;color: white;width: 5%;height:8%;font-size: 24px;"  type="number" min="1" max="6"> 
+<input class="button1" type="button" value="Roll">
+    <div id="dice"></div>
+</div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+document.querySelector('input[type=button]').addEventListener('click', function(){rollTheDice();});
+
+var rollTheDice = function() {
+    var count=0;
+    var i,
+        faceValue,
+        output = '',
+        diceCount = document.querySelector('input[type=number]').value || 1;
+       
+    for (i = 0; i < diceCount; i++) {
+        faceValue = Math.floor(Math.random() * 6);
+        output += "&#x268" + faceValue + "; ";
+        count=count+faceValue+1;
+        
+    }
+    document.getElementById('dice').innerHTML = output;
+   
+     document.getElementById('inp').innerHTML = "Total Numbers in Dice ="+ count;
+   
+}
+
+
+
+$(document).keypress(function(event){
+    if(event.keyCode == 13){
+
+        rollTheDice();
+    }
+});
+</script>
+
+</html>
+
+
