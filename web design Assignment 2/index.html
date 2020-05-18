@@ -1,0 +1,179 @@
+<!doctype html>
+<html>
+<head>
+    <title>Weather</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+
+    <style>
+        body{
+
+            background-color: #EF6D3F ;
+        }
+        .button {
+          background-color: #F2E4F0; /* Green */
+          border: none;
+          color: black;
+          padding: 15px 32px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 16px;
+          margin: 4px 2px;
+          cursor: pointer;
+          border-radius: 25px;
+        }
+   .cc{
+       text-align: center;
+       margin-top: 2em;
+   }     
+   @font-face {
+       font-family: "Intro W01 Regular Alt";
+   
+   src: url(alt.woff);
+}
+@font-face {
+       font-family: "century";
+   
+   src: url(century.ttf);
+}
+
+.woff {
+    font-family:"Intro W01 Regular Alt" !important;
+    /* font-size:16px; */
+    font-style:normal;
+    font-weight: 100;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+}
+.century {
+    font-family:"century" !important;
+    font-style:normal;
+    font-size:26px;
+    font-weight: 100;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+}
+h2{
+    font-size: 32px;
+    color: white;
+}
+p{
+    color: white;
+}
+#change{
+    font-size: 24px;
+    font-weight: 100;
+}
+
+        </style>
+    
+   </head>
+<body>
+    <div class="cc">
+    <h2 class="woff">What should I eat for lunch?</h2>
+    <p class="century">click the current weather to see some suggestions.</p>
+    
+    <button  id="sunnyb" onclick="sunny()" class="button">Sunny</button>
+    <button id="cloudyb" onclick="cloudy()" class="button ">Cloudy</button>
+    <button id="windyb" onclick="windy()" class="button ">Windy</button>
+    <button id="rainyb" onclick="rainy()" class="button ">Rainy</button>
+    <button id="snowyb" onclick="snowy()" class="button ">Snowy</button><br><br>
+    <image style="width: 32%;display: none;" id="sunny" src="sunny.jpg"></image>
+    <image style="width: 32%;display: none;" id="cloudy" src="cloudy.jpg"></image>
+    <image style="width: 32%;display: none;;height: 16em;" id="rainy" src="rainy.jpg"></image>
+    <image style="width: 32%;display: none;height: 16em;" id="windy" src="windy.jpg"></image>
+    <image style="width: 32%;display: none;" id="snowy" src="snowy.jpg"></image>
+
+    <p id="change" class="woff"></p>
+</div>
+</body>
+<script>
+    function sunny()
+    {
+        document.body.style.backgroundColor = "#E1BB48";
+        document.getElementById("sunny").style.display = "inline";
+        document.getElementById("cloudy").style.display = "none";
+        document.getElementById("rainy").style.display = "none";
+        document.getElementById("windy").style.display = "none";
+        document.getElementById("snowy").style.display = "none";
+        document.getElementById("change").innerHTML = "Sushi with cold sake will be perfect for a beautiful sunny day.";
+
+        document.getElementById("sunnyb").style.color = "#E1BB48";
+        document.getElementById("cloudyb").style.color = "black";
+        document.getElementById("rainyb").style.color = "black";
+        document.getElementById("windyb").style.color = "black";
+        document.getElementById("snowyb").style.color = "black";
+
+    }
+    function cloudy()
+    {
+        document.body.style.backgroundColor = "#80A2D5";
+        document.getElementById("sunny").style.display = "none";
+        document.getElementById("cloudy").style.display = "inline";
+        document.getElementById("rainy").style.display = "none";
+        document.getElementById("windy").style.display = "none";
+        document.getElementById("snowy").style.display = "none";
+        document.getElementById("change").innerHTML = "Why not spice up your day with Thai food?";
+
+        document.getElementById("sunnyb").style.color = "black";
+        document.getElementById("cloudyb").style.color = "#80A2D5";
+        document.getElementById("rainyb").style.color = "black";
+        document.getElementById("windyb").style.color = "black";
+        document.getElementById("snowyb").style.color = "black";
+
+    }
+    function windy()
+    {
+        document.body.style.backgroundColor = "#60C8D0";
+        document.getElementById("sunny").style.display = "none";
+        document.getElementById("cloudy").style.display = "none";
+        document.getElementById("rainy").style.display = "none";
+        document.getElementById("windy").style.display = "inline";
+        document.getElementById("snowy").style.display = "none";
+        document.getElementById("change").innerHTML = "There is never a bad day for a healthy and freash salad.";
+        document.getElementById("sunnyb").style.color = "black";
+        document.getElementById("cloudyb").style.color = "black";
+        document.getElementById("rainyb").style.color = "black";
+        document.getElementById("windyb").style.color = "#60C8D0";
+        document.getElementById("snowyb").style.color = "black";
+
+    }
+    function rainy()
+    {
+        document.body.style.backgroundColor = "#8855A3";
+        document.getElementById("sunny").style.display = "none";
+        document.getElementById("cloudy").style.display = "none";
+        document.getElementById("rainy").style.display = "inline";
+        document.getElementById("windy").style.display = "none";
+        document.getElementById("snowy").style.display = "none";
+        document.getElementById("change").innerHTML = "Why not try taco, it might bring some sunshine to your day";
+
+        document.getElementById("sunnyb").style.color = "black";
+        document.getElementById("cloudyb").style.color = "black";
+        document.getElementById("rainyb").style.color = "#8855A3";
+        document.getElementById("windyb").style.color = "black";
+        document.getElementById("snowyb").style.color = "black";
+
+    }
+    function snowy()
+    {
+        document.body.style.backgroundColor = "#C46FAD";
+        document.getElementById("sunny").style.display = "none";
+        document.getElementById("cloudy").style.display = "none";
+        document.getElementById("rainy").style.display = "none";
+        document.getElementById("windy").style.display = "none";
+        document.getElementById("snowy").style.display = "inline";
+        document.getElementById("change").innerHTML = "Hot , chewy and crisp pizza is perfect for a snowy day.";
+
+        document.getElementById("sunnyb").style.color = "black";
+        document.getElementById("cloudyb").style.color = "black";
+        document.getElementById("rainyb").style.color = "black";
+        document.getElementById("windyb").style.color = "black";
+        document.getElementById("snowyb").style.color = "#C46FAD";
+
+
+    }
+</script>
+</html>
