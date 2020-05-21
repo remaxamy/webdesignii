@@ -24,7 +24,9 @@ a{
     text-decoration: none !important;
 }
 
-
+img{
+    user-select: none;
+}
 h1,h2,h3,h4,h5,h6{
     font-family: BAUHS93;
     color: #7C8EE0;
@@ -46,7 +48,7 @@ h2{
     font-size: 2.75rem;
 }
 .main-banner-search{
-    padding-top: 10rem;
+    padding-top: 9rem;
 }
 .form-box{
     max-width: 380px;
@@ -70,6 +72,9 @@ h2{
     color: #ffffff70;
 }
 
+.form-box h6 small{
+    font-size: 95%;
+}
 
 
 
@@ -236,5 +241,21 @@ h2{
     overflow-y: scroll;
 }
 
+/*scroll bar styling*/
 
+#result::-webkit-scrollbar-track {
+    background-color: #ffffff33
+}
+
+#result::-webkit-scrollbar {
+    width: 7px;
+}
+
+#result::-webkit-scrollbar-thumb {
+    background: #7C8EE090;
+}
+
+#result::-webkit-scrollbar-thumb:hover {
+    box-shadow: inset 0 0 100px 20px #5b6ab590;
+}
 
